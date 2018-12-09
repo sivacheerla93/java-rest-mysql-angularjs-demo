@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title></title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+<script>
+	var myModule = angular.module("myModule", []).controller("myController",
+			function($scope, $http) {
+				$scope.getEmployeesData = function() {
+					$http.get("crud/employees/view").then(function(response) {
+						$scope.employeesData = response.data;
+					})
+				}
+			});
+</script>
+</head>
+
+<body ng-app="myModule">
+	<div ng-controller="myController">
+		<button ng-click="getEmployeesData()">Get Employees Data</button>
+		<br /> <br />
+		<table border="1">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>City</th>
+					<th>Salary</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="emp in employeesData">
+					<td>{{emp.id}}</td>
+					<td>{{emp.name}}</td>
+					<td>{{emp.city}}</td>
+					<td>{{emp.salary}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+</html>
